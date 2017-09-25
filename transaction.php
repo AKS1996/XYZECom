@@ -1,13 +1,12 @@
 <?php include 'db.php';?>
 <?php
-//to create new entry
+//to get past transactions using SLID
+
+// TODO Get him the transactions using SLID
 	
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$FNAME = $_POST["FNAME"];
-	$PWRD = $_POST["PWRD"];
-	$UNAME = $_POST["UNAME"];
-	$CELL = $_POST["CELL"];
 	$SLID = $_POST["SLID"];
+	
 	
 	$q = "INSERT INTO `MAIN_TABLE` (`FNAME`,`UNAME`,`SLID`,`CELL`,`PWRD`) VALUES";
 	$q = $q." ('".$FNAME."','".$UNAME."','".$SLID."','".$CELL."','".$PWRD."')";

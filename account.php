@@ -1,16 +1,29 @@
 <?php include 'db.php';?>
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") { //if new request is being made
-    $cleaned_request = preg_replace('/[^a-zA-Z0-9.\s]/', '', $_POST["SLID"]); //remove invalid chars from input
+// update existing entry using SLID
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	$FNAME = $_POST["FNAME"];
+	$PWRD = $_POST["PWRD"];
+	$UNAME = $_POST["UNAME"];
+	$CELL = $_POST["CELL"];
+	$SLID = $_POST["SLID"];
 	
-	//to check whether there's the guy in DB
-    if (!$mysqli->query("CALL findSLID('". $cleaned_request . "');")){
+	$q = "UPDATE `MAIN_TABLE` SET ";
+	$q = $q."`FNAME`='".$FNAME."', ";
+	$q = $q."`PWRD`='".$PWRD."', ";
+	$q = $q."`UNAME`='".$UNAME."', ";
+	$q = $q."`CELL`='".$CELL."' ";
+	$q = $q."WHERE `SLID`='".$SLID."'";
+	$q = $q.";";
+
+//	echo $q;
+	$res = $mysqli->query($q);
+	
+    if (!$res){
 		echo "CALL failed: (" . $mysqli->errno . ") " . $mysqli->error;
 	}else{
-		echo $res;
+		echo 'sucess';
 	}
-else{
-		echo 'not found';
-		//echo "CALL failed: (" . $mysqli->errno . ") " . $mysqli->error;
-	}
+}
 ?>

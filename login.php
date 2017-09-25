@@ -1,15 +1,36 @@
 <?php include 'db.php';?>
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") { //if new request is being made
-    $cleaned_request = preg_replace('/[^a-zA-Z0-9.\s]/', '', $_POST["SLID"]); //remove invalid chars from input
-	
-	//to check whether there's the guy in DB
-    if (!$mysqli->query("CALL findSLID('". $cleaned_request . "');")){
-		echo "CALL failed: (" . $mysqli->errno . ") " . $mysqli->error;
-	}else{
-		echo $res;
+//Checks check whether there's the guy in DB
+
+<table>
+    foreach ($_POST as $key => $value) {
+        echo "<tr>";
+        echo "<td>";
+        echo $key;
+        echo "</td>";
+        echo "<td>";
+        echo $value;
+        echo "</td>";
+        echo "</tr>";
+    }
+</table>
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $ID = $_POST["SLID"];
+//    echo $ID;
+    
+    $q = "SELECT * FROM MAIN_TABLE WHERE SLID='".$ID."';";
+    
+    $res = $mysqli->query($q);
+    
+    if ($res->num_rows > 0) {
+	    while($row = $res->fetch_assoc()) {
+	    	$myObj->UNAME = $row["UNAME"];
+			$myObj->CELL = $row["CELL"];
+			$myJSON = json_encode($myObj);
+	        echo $myJSON;
+	    }
+	} else {
+    	echo NULL;
 	}
-else{
-		echo "CALL failed: (" . $mysqli->errno . ") " . $mysqli->error;
-	}
+}
 ?>

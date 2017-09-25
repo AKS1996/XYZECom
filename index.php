@@ -8,6 +8,20 @@ if ($result = $mysqli->query($strsql)) {
         //Could be many reasons, but most likely the table isn't created yet. init.php will create the table.
         echo "<b>Can't query the database, did you <a href = init.php>Create the table</a> yet?</b>";
     }
+    
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $cleaned_message = preg_replace('/[^a-zA-Z0-9.\s]/', '', $_POST["SLID"]);
+	
+	if(strlen($cleaned_message) > 0){
+	    $strsq0 = "INSERT INTO MAIN_TABLE (SLID) VALUES ('" . $cleaned_message . "');";
+	    if ($mysqli->query($strsq0)) {
+	        echo "Insert success!";
+	    } else {
+	        echo "Cannot insert into the data table; check whether the table is created, or the database is active. "  . mysqli_error();
+	    }
+	}
+
+}
 ?>
 
 
@@ -24,7 +38,6 @@ if ($result = $mysqli->query($strsql)) {
 
 <body>
     <div class="">
-        <img class="newappIcon" src="images/newapp-icon.png" />
         <h1>
 					Welcome to the <span class="blue">XYZ ECommerce App</span>
 				</h1>
@@ -63,7 +76,7 @@ if ($result = $mysqli->query($strsql)) {
         <tr>
             <form method = "POST"> <!--FORM: will submit to same page (index.php), and if ($_SERVER["REQUEST_METHOD"] == "POST") will catch it -->
                 <td colspan = "2">
-                <input type = "text" style = "width:100%" name = "request" autofocus onchange="saveChange(this)" onkeydown="onKey(event)"></input>
+                <input type = "text" style = "width:100%" name = "SLID" autofocus onchange="saveChange(this)" onkeydown="onKey(event)"></input>
                 </td>
                 <td>
                     <button class = "mybutton" type = "submit">New Entry</button></td></tr>
