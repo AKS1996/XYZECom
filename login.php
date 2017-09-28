@@ -2,24 +2,12 @@
 <?php
 //Checks check whether there's the guy in DB
 
-<table>
-    foreach ($_POST as $key => $value) {
-        echo "<tr>";
-        echo "<td>";
-        echo $key;
-        echo "</td>";
-        echo "<td>";
-        echo $value;
-        echo "</td>";
-        echo "</tr>";
-    }
-</table>
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $ID = $_POST["SLID"];
+   // $ID = $_POST["SLID"];
 //    echo $ID;
-    
+	$data = json_decode(file_get_contents('php://input'), true);
+    $ID = $data["SLID"];
     $q = "SELECT * FROM MAIN_TABLE WHERE SLID='".$ID."';";
-    
     $res = $mysqli->query($q);
     
     if ($res->num_rows > 0) {

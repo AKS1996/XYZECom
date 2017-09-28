@@ -3,15 +3,12 @@
 // update existing entry using SLID
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$FNAME = $_POST["FNAME"];
-	$PWRD = $_POST["PWRD"];
-	$UNAME = $_POST["UNAME"];
-	$CELL = $_POST["CELL"];
-	$SLID = $_POST["SLID"];
+	$data = json_decode(file_get_contents('php://input'), true);
+	$UNAME = $data["UNAME"];
+	$CELL = $data["CELL"];
+	$SLID = $data["SLID"];
 	
 	$q = "UPDATE `MAIN_TABLE` SET ";
-	$q = $q."`FNAME`='".$FNAME."', ";
-	$q = $q."`PWRD`='".$PWRD."', ";
 	$q = $q."`UNAME`='".$UNAME."', ";
 	$q = $q."`CELL`='".$CELL."' ";
 	$q = $q."WHERE `SLID`='".$SLID."'";

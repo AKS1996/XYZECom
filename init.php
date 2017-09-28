@@ -14,6 +14,12 @@ if ($mysqli->query($sqlTable)) {
 } else {
 	echo "Cannot drop table. "  . mysqli_error();
 }
+$sqlTable="DROP TABLE IF EXISTS TRANS_TABLE";
+if ($mysqli->query($sqlTable)) {
+    echo "Table2 dropped successfully! <br>";
+} else {
+	echo "Cannot drop table. "  . mysqli_error();
+}
 // MAIN_TABLE has 2 main columns - ID, SLID(Social Login ID - FB Google)
 
 echo "Executing CREATE TABLE Query...<br>";
@@ -28,9 +34,24 @@ CREATE TABLE MAIN_TABLE (
  PRIMARY KEY (ID)
 ) DEFAULT CHARSET=utf8
 ";
+$sqlTable_trans="
+CREATE TABLE TRANS_TABLE (
+ AMOUNT int(6) NOT NULL,
+ TO_SLID varchar(255) NOT NULL,
+ FROM_SLID varchar(255) NOT NULL,
+ ID bigint(20) NOT NULL AUTO_INCREMENT,
+ PRIMARY KEY (ID)
+) DEFAULT CHARSET=utf8
+";
 
 if ($mysqli->query($sqlTable)) {
     echo "Table created successfully!<br>";
+} else {
+	echo "ERROR: Cannot create table. "  . mysqli_error();
+	die();
+}
+if ($mysqli->query($sqlTable_trans)) {
+    echo "Table2 created successfully!<br>";
 } else {
 	echo "ERROR: Cannot create table. "  . mysqli_error();
 	die();

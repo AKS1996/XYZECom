@@ -5,11 +5,12 @@
 // TODO Get him the transactions using SLID
 	
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	$SLID = $_POST["SLID"];
-	
-	
-	$q = "INSERT INTO `MAIN_TABLE` (`FNAME`,`UNAME`,`SLID`,`CELL`,`PWRD`) VALUES";
-	$q = $q." ('".$FNAME."','".$UNAME."','".$SLID."','".$CELL."','".$PWRD."')";
+	$data = json_decode(file_get_contents('php://input'), true);
+    $TO_SLID = $data["TO_SLID"];
+    $FROM_SLID = $data["FROM_SLID"];
+    $AMOUNT = $data["AMOUNT"];
+	$q = "INSERT INTO `TRANS_TABLE` (`TO_SLID`,`FROM_SLID`,`AMOUNT`) VALUES";
+	$q = $q." ('".$TO_SLID."','".$FROM_SLID."','".$AMOUNT."')";
 	$q = $q.";";
 
 //	echo $q;	
