@@ -1,0 +1,16 @@
+{
+    "name": "root/xyze-commerce",
+    "description": "Display ECommerce App",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "AKS1996",
+            "email": "sushsilsharma.ss451@gmail.com"
+        }
+    ],
+    "require": {
+    },
+    "require-dev": {
+    "heroku/heroku-buildpack-php": "*"
+  }
+}
