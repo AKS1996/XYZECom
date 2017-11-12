@@ -7,20 +7,19 @@ if(!getenv("CLEARDB_DATABASE_URL")){ //local dev
     $mysql_database = "test";
 } else {
     $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-    echo "shit";
     $server =$url["host"];
     $username = $url["user"];
     $password = $url["pass"];
     $db = substr($url["path"], 1);
 }
-echo "Debug: " . $mysql_server_name . " " .  $mysql_username . " " .  $mysql_password . "\n";
+// echo "Debug: " . $mysql_server_name . " " .  $mysql_username . " " .  $mysql_password . "\n";
 
 $mysqli = new mysqli($server, $username, $password, $db);
 if ($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
     die();
 }else{
-	echo "Connection working well";
+	// echo "Connection working well";
 }
 
 ?>
